@@ -8,4 +8,8 @@ class Map
       puts col.join("-")
     end
   end
+
+  def insert(item)
+    
+  end
 end

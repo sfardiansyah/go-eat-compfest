@@ -1,6 +1,8 @@
-class User
+require_relative 'instance'
+
+class User < Instance
   def initialize(coordinate)
-    @coordinate = coordinate
+    super(coordinate)
     @history = Array.new
   end
 end

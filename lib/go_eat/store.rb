@@ -1,5 +1,7 @@
-class Store
+require_relative 'instance'
+
+class Store < Instance
   def initialize(coordinate)
-    @coordinate = coordinate
+    super(coordinate)
   end
 end

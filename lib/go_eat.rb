@@ -12,8 +12,8 @@ class GoEat
     @used_coordinates = Array.new
 
     @user = generate_user(x, y)
-    @drivers = generate_drivers()
-    @stores = generate_stores()
+    @drivers = generate(Driver, 5)
+    @stores = generate(Store, 3)
   end
 
   def print_map()
@@ -25,14 +25,6 @@ class GoEat
     @used_coordinates.push(coordinate)
 
     return User.new(coordinate)
-  end
-
-  def generate_drivers()
-    return generate(Driver, 5)
-  end
-
-  def generate_stores()
-    return generate(Store, 3)
   end
 
   def generate(class_type, n)
