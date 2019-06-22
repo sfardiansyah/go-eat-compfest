@@ -1,21 +1,21 @@
 class Driver
-  def initialize(rating=0.0)
-    @rating = rating
-  end
+  attr_reader :rating
 
-  def rating
-    @rating
+  def initialize(coordinate, rating=0.0)
+    @coordinate = coordinate
+    @rating = rating
   end
 end
 
 class Store
-
+  def initialize(coordinate)
+    @coordinate = coordinate
+  end
 end
 
 class User
-  def initialize(x, y)
-    @x = x
-    @y = y
+  def initialize(coordinate)
+    @coordinate = coordinate
     @history = Array.new
   end
 end
@@ -46,20 +46,56 @@ class Map
 end
 
 class GoEat
-  def initialize(size)
+  def initialize(size, x=rand(size), y=rand(size))
+    @size = size
     @map = Map.new(size)
-    @drivers = Array.new(5){Driver.new}
-    @stores = Array.new(3){Store.new}
+    @used_coordinates = Array.new
 
-    user_x = rand(size)
-    user_y = rand(size)
-    @user = User.new(user_x, user_y)
+    @user = generate_user(x, y)
+    @drivers = generate_drivers()
+    @stores = generate_stores()
   end
 
   def print_map()
     @map.print()
   end
+
+  def generate_user(x, y)
+    coordinate = Coordinate.new(x, y)
+    @used_coordinates.push(coordinate)
+
+    return User.new(coordinate)
+  end
+
+  def generate_drivers()
+    return generate(Driver, 5)
+  end
+
+  def generate_stores()
+    return generate(Store, 3)
+  end
+
+  def generate(class_type, n)
+    items = Array.new(n)
+    items.each do |item|
+      coordinate = Coordinate.new(rand(@size), rand(@size))
+      while @used_coordinates.include? coordinate
+        coordinate = Coordinate.new(rand(@size), rand(@size))
+      end
+
+      @used_coordinates.push(coordinate)
+
+      item = class_type.new(coordinate)
+    end
+    return items 
+  end
+
+  def print_used_coordinates()
+    @used_coordinates.each do |c|
+      puts [c.x, c.y].join(" ")
+    end
+  end
 end
 
 go = GoEat.new(5)
-go.print_map()
+go.print_used_coordinates()
