@@ -1,49 +1,9 @@
-class Driver
-  attr_reader :rating
-
-  def initialize(coordinate, rating=0.0)
-    @coordinate = coordinate
-    @rating = rating
-  end
-end
-
-class Store
-  def initialize(coordinate)
-    @coordinate = coordinate
-  end
-end
-
-class User
-  def initialize(coordinate)
-    @coordinate = coordinate
-    @history = Array.new
-  end
-end
-
-class Coordinate
-  attr_reader :x, :y
-
-  def initialize(x, y)
-    @x = x
-    @y = y
-  end
-end
-
-class Transaction
-
-end
-
-class Map
-  def initialize(size)
-    @grid = Array.new(size) { Array.new(size) }
-  end
-
-  def print()
-    @grid.each do |col|
-      puts col.join("-")
-    end
-  end
-end
+require_relative 'go_eat/coordinate'
+require_relative 'go_eat/driver'
+require_relative 'go_eat/map'
+require_relative 'go_eat/store'
+require_relative 'go_eat/transaction'
+require_relative 'go_eat/user'
 
 class GoEat
   def initialize(size, x=rand(size), y=rand(size))
