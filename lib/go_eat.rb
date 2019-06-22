@@ -16,29 +16,34 @@ class GoEat
     @stores = generate(Store, 3)
   end
 
-  def print_map()
-    @map.print()
+  def print_map
+    @map.print
   end
 
   def generate_user(x, y)
     coordinate = Coordinate.new(x, y)
     @used_coordinates.push(coordinate)
 
-    return User.new(coordinate)
+    user =  User.new(coordinate)
+    @map.insert(user)
+    return user
   end
 
   def generate(class_type, n)
     items = Array.new(n)
     items.each do |item|
       coordinate = Coordinate.new(rand(@size), rand(@size))
+
       while @used_coordinates.include? coordinate
         coordinate = Coordinate.new(rand(@size), rand(@size))
       end
-
+      
       @used_coordinates.push(coordinate)
-
+      
       item = class_type.new(coordinate)
+      @map.insert(item)
     end
+
     return items 
   end
 
@@ -51,3 +56,4 @@ end
 
 go = GoEat.new(5)
 go.print_used_coordinates()
+go.print_map

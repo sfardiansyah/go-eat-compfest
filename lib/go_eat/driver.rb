@@ -7,4 +7,8 @@ class Driver < Instance
     super(coordinate)
     @rating = rating
   end
+
+  def to_s
+    "D"
+  end
 end

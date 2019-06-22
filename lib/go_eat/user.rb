@@ -5,4 +5,8 @@ class User < Instance
     super(coordinate)
     @history = Array.new
   end
+
+  def to_s
+    "U"
+  end
 end
